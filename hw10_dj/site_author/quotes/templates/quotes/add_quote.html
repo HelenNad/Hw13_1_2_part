@@ -1,0 +1,37 @@
+{% extends "quotes/base.html" %}
+{% load extract %}
+
+{% block content %}
+
+<form method="POST" action="{% url 'quotes:quote_add' %}">
+    {% csrf_token %}
+    <div class="container text-center">
+        <div class="row align-items-start">
+            <div class="col">
+                <p>Select tags:</p>
+                <div class="row">
+                    {% for tag in tags %}
+                    <input class="form-check-input" type="checkbox" value="{{tag.name}}" id="flexCheckDefault" name="tags">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        {{tag.name}}
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col">
+                <label> Select author: {{form.author}} </label>
+            </div>
+            <div class="col">
+                <label> Author's quote: {{ form.quote }}
+                </label>
+                <span>{{ form.errors.quote }}</span>
+            </div>
+
+            <div class="col">
+                <button type="submit" class="btn btn-success">Submit</button>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
